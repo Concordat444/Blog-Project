@@ -1,0 +1,23 @@
+<%- include('partials/header') %>
+
+<h1>New Post</h1>
+
+<form action="/create" method="post">
+    <div class="mb-3">
+        <label for="title" class="form-label" req>Title:</label>
+        <input type="text" class="form-control" name="title" id="title" placeholder="test" required>
+    </div>
+    <div class="mb-3">
+        <textarea name="postText" id="postText" class="form-control" rows="10" required>test</textarea>
+    </div>
+    <input class="btn btn-primary" type="submit" value="submit">
+</form>
+
+
+</main>
+<script>
+    document.querySelector("a[href='/newPost']").classList.add("active");
+ </script>
+</body>
+
+<%- include('partials/footer.ejs') %> 
