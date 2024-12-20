@@ -5,7 +5,16 @@
  <h2>Your Posts</h2>
  <ul class="list-group">
     <% catalogue.forEach(element => { %>
-     <li class="list-group-item"><a href=<%= `/viewPost/${element.id}` %>><%= element.title %></a></li>
+      <div class="row">
+         <div class="col-6">
+            <li class="list-group-item"><a href=<%= `/viewPost/${element.id}` %>><%= element.title %></a></li>
+         </div>
+         <div class="col-3">
+            <form action="<%= `/delete/${element.id}` %>" method="post">
+               <input type="submit" class="btn btn-danger" value="delete">
+            </form>
+         </div>
+      </div>
     <% }) %>
  </ul>
 <% }  %>

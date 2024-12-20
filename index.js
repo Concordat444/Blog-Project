@@ -4,6 +4,7 @@ const app = express();
 const port = 3000;
  
 var catalogue = [new BlogPost(0, "test", "test")];
+var totalPostCount = catalogue.length;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -17,20 +18,22 @@ app.get("/newPost", (req, res) => {
   });
 
   app.post("/create", (req, res) => {
-    console.log(req.body.postText);
-    let blogPost = new BlogPost(catalogue.length, req.body.title, req.body.postText );
+    let blogPost = new BlogPost(totalPostCount, req.body.title, req.body.postText );
     catalogue.push(blogPost);
+    console.log(blogPost);
+    totalPostCount++;
     res.redirect("/");
   });
 
   app.get('/viewPost/:postId', (req, res) => {
-/*     res.render("newPost.ejs"); */
-    console.log(req.params);
-    res.render("viewPost.ejs", {blogPost: catalogue[req.params.postId]});
+    console.log(req.params.postId);
+    let target = catalogue.find((element) => element.id === Number(req.params.postId));
+    res.render("viewPost.ejs", {blogPost: target});
   });
 
   app.post("/delete/:postId", (req, res) => {
-    catalogue.splice(catalogue.findIndex((element) => element.id === req.params.postId), 1);
+    console.log(req.params);
+    catalogue.splice(catalogue.findIndex((element) => element.id === Number(req.params.postId)), 1);
     res.redirect("/");
   });
 
