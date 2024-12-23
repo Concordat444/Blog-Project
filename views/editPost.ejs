@@ -1,0 +1,36 @@
+<%- include('partials/header') %>
+<% if (!locals.post) { %>
+ <h1>New Post</h1>
+
+<form action="/create" method="post">
+    <div class="mb-3">
+        <label for="title" class="form-label" req>Title:</label>
+        <input type="text" class="form-control" name="title" id="title" placeholder="test" required>
+    </div>
+    <div class="mb-3">
+        <textarea name="postText" id="postText" class="form-control" rows="10" required>test</textarea>
+    </div>
+    <input class="btn btn-primary" type="submit" value="submit">
+</form>
+<% } else { %>
+    <form action="/apply" method="post">
+        <input type="hidden" name="id" value="<%= post.id %>" />
+        <div class="mb-3">
+            <label for="title" class="form-label" req>Title:</label>
+            <input type="text" class="form-control" name="title" value="<%= post.title %>" required>
+        </div>
+        <div class="mb-3">
+            <textarea name="postText" class="form-control" rows="10" required><%= post.content %></textarea>
+        </div>
+        <input class="btn btn-primary" type="submit" value="submit">
+    </form>
+    <% } %>
+</main>
+<% if (!locals.post) { %>
+<script>
+    document.querySelector("a[href='/newPost']").classList.add("active");
+ </script>
+<% } %>
+</body>
+
+<%- include('partials/footer.ejs') %> 
