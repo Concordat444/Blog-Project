@@ -15,8 +15,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/newPost", (req, res) => {
-    res.render("newPost.ejs");
+    res.render("editPost.ejs");
   });
+
+  app.post("/editPost/:postId", (req, res) => {
+    let target = catalogue.get(Number(req.params.postId));
+    res.render("editPost.ejs", {post: target});
+  })
 
   app.post("/create", (req, res) => {
     let blogPost = new BlogPost( totalPostCount, req.body.title, req.body.postText );
@@ -37,6 +42,13 @@ app.get("/newPost", (req, res) => {
     catalogue.delete(Number(req.params.postId));
     res.redirect("/");
   });
+
+  app.post("/apply", (req, res) => {
+    let target = catalogue.get(Number(req.body.id));
+    target.title = req.body.title;
+    target.content = req.body.postText;
+    res.redirect("/");
+  })
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

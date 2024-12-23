@@ -18,8 +18,11 @@
             <td class="text-center col-2" ><a href=<%= `/viewPost/${element.id}` %>><%= element.id %></a></td>
             <td class="text-center col-8" ><a href=<%= `/viewPost/${element.id}` %>><%= element.title %></a></td>
             <td class="col-4">
-               <form action="<%= `/delete/${element.id}` %>" method="post">
-                  <button type="submit" class="btn btn-danger">Delete</button>
+               <form action="<%= `/delete/${element.id}` %>" method="post" class="d-inline-flex">
+                  <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+               </form>
+               <form action="<%= `/editPost/${element.id}` %>" method="post" class="d-inline-flex">
+                  <button type="submit" class="btn btn-warning btn-sm">Edit</button>
                </form>
             </td>
          </tr>
