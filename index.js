@@ -3,8 +3,9 @@ import express from "express";
 const app = express();
 const port = 3000;
  
-var catalogue = [new BlogPost(0, "test", "test")];
-var totalPostCount = catalogue.length;
+var catalogue = new Map();
+catalogue.set(0 , new BlogPost(0 , 'test', 'test'));
+var totalPostCount = catalogue.size;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -18,8 +19,8 @@ app.get("/newPost", (req, res) => {
   });
 
   app.post("/create", (req, res) => {
-    let blogPost = new BlogPost(totalPostCount, req.body.title, req.body.postText );
-    catalogue.push(blogPost);
+    let blogPost = new BlogPost( totalPostCount, req.body.title, req.body.postText );
+    catalogue.set(totalPostCount, blogPost);
     console.log(blogPost);
     totalPostCount++;
     res.redirect("/");
@@ -27,13 +28,13 @@ app.get("/newPost", (req, res) => {
 
   app.get('/viewPost/:postId', (req, res) => {
     console.log(req.params.postId);
-    let target = catalogue.find((element) => element.id === Number(req.params.postId));
+    let target = catalogue.get(Number(req.params.postId));
     res.render("viewPost.ejs", {blogPost: target});
   });
 
   app.post("/delete/:postId", (req, res) => {
     console.log(req.params);
-    catalogue.splice(catalogue.findIndex((element) => element.id === Number(req.params.postId)), 1);
+    catalogue.delete(Number(req.params.postId));
     res.redirect("/");
   });
 

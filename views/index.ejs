@@ -1,7 +1,7 @@
 <%- include('partials/header.ejs') %> 
 
 <h1 class="text-bg-primary col-6">James Reed blog manager</h1>
-<% if (locals.catalogue.length !== 0) { %>
+<% if (locals.catalogue.size !== 0) { %>
  <h2>Your Posts</h2>
  <ul class="list-group">
     <% catalogue.forEach(element => { %>
